@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spatchcocking"
+version = "0.2.0"
+description = "Standardized 3D-to-2D projection of tubular organ surfaces onto anatomical coordinates"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Nimesh Chahare" },
+    { name = "Nandan L. Nerurkar" },
+]
+keywords = ["morphometrics", "tissue cartography", "mesh", "curvature", "developmental biology"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+
+# Version floors are deliberate rather than exact pins: the point of this
+# release is that it installs from PyPI without a git checkout. scikit-image
+# needs 0.26 or later, the first with `max_size` in remove_small_objects, which
+# the mask preprocessing uses. environment.yml pins the tested versions.
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "pandas>=2.0",
+    "matplotlib>=3.7",
+    "seaborn>=0.12",
+    "scikit-image>=0.26",
+    "tifffile>=2023.1.1",
+    "trimesh>=4.0",
+    "vedo>=2024.5",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "jupytext>=1.15"]
+# Viewing only. Nothing in the pipeline imports napari, no step of the projection
+# needs it, and the test suite runs headless without it.
+napari = ["napari[all]>=0.5"]
+
+[project.scripts]
+spatchcock = "spatchcocking.cli:main"
+
+[project.urls]
+Repository = "https://github.com/nchahare/spatchcocking-protocol"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# `slow` is the mask-to-mesh reproduction: marching cubes over a
+# 462 x 768 x 1024 stack, about 45 s per mask. Deselected by default so
+# `pytest` stays quick; run it with `pytest -m slow` before a release.
+markers = ["slow: takes tens of seconds; run before a release"]
+addopts = "-m 'not slow'"

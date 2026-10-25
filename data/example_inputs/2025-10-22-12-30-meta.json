@@ -1,0 +1,46 @@
+{
+  "stem": "2025-10-22-12-30",
+  "stage": "HH20",
+  "image": "2025-10-22-12-30-image.tif",
+  "shape_czyx": [
+    2,
+    462,
+    192,
+    256
+  ],
+  "file_axes": "ZCYX",
+  "dtype": "uint8",
+  "spacing_um_zyx": [
+    4.5,
+    22.14,
+    22.14
+  ],
+  "channels": [
+    "pHH3",
+    "DAPI"
+  ],
+  "channels_note": "The file names the channels only 'Ch2 GaAsP-T1' and 'Ch1-T2'. ch0 = pHH3 and ch1 = DAPI were identified by eye.",
+  "z_spacing_note": "The CZI metadata reports z = 3.0 um. The correct step is 4.5 um, a factor of 1.5, the refractive-index correction for DBE clearing. Every mesh, spot and density in this dataset is already in the corrected frame. Always pass spacing explicitly; never read it from the file.",
+  "binning": {
+    "xy": 4,
+    "z": 1
+  },
+  "source_czi": "2025-10-22-12-30-dbe-hh20-phh3-dapi_Stitch.czi",
+  "source_shape_czyx": [
+    2,
+    462,
+    768,
+    1024
+  ],
+  "source_spacing_um_zyx": [
+    4.5,
+    5.535,
+    5.535
+  ],
+  "masks_lattice_zyx": [
+    462,
+    768,
+    1024
+  ],
+  "masks_note": "The masks are on the full unbinned lattice. The image is binned but never cropped, so it registers with them by scale alone -- no offset."
+}
