@@ -5,9 +5,7 @@ Provenance
 Every function here is copied CHARACTER FOR CHARACTER from
 `spatchcocking_utils.py` in nchahare/spatchcocking @ 3306f17, the code behind
 Chahare, Imamura & Nerurkar (2026), Biophysical Reports 6:100280. Only module
-headers and imports are new. `tests/test_pipeline_parity.py` compares every
-function against the published source and checks the numerics, so no copy can
-drift silently.
+headers and imports are new.
 
 Why the published module is split rather than kept whole
 --------------------------------------------------------

@@ -42,6 +42,28 @@ def test_density_reproduces_the_shipped_field(basal, shipped):
     assert np.allclose(ours, theirs, rtol=0, atol=1e-6)
 
 
+# Tolerances are absolute, not relative: both curvatures cross zero, so a
+# relative tolerance is meaningless near the sign change.
+#
+# Measured drift between vedo 2026.6.2.dev8 and 2026.6.1, with identical
+# vertices, normals, adjacency and MKL: 4.0e-11 on K, 2.8e-8 on H. The cause is
+# neighbor ordering changing the row order of the least-squares fit, so the
+# rounding differs. Thresholds sit an order of magnitude above that, and are
+# still ~1e-5 of each quantity's full range (K spans ~7e-5, H spans ~1.2e-2).
+ATOL_GAUSS = 1e-9
+ATOL_MEAN = 1e-6
+
+
+def test_curvature_reproduces_the_shipped_field(basal, shipped):
+    """Recomputed with the vendored fit, as protocol/measure.py does."""
+    assert np.array_equal(basal.vertices, shipped.vertices)
+    ours = fields.curvature(basal, depth=5, degree=2, normalise=False)
+    for name, atol in (("Gauss_Curvature", ATOL_GAUSS), ("Mean_Curvature", ATOL_MEAN)):
+        np.testing.assert_allclose(np.asarray(ours.pointdata[name]),
+                                   np.asarray(shipped.pointdata[name]),
+                                   rtol=0, atol=atol, err_msg=name)
+
+
 def test_curvature_matches_the_published_fit(basal):
     """Normalized, this is the fit that produced the original 3744-row file."""
     curv = fields.curvature(basal, normalise=True)

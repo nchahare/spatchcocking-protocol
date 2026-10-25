@@ -7,7 +7,7 @@ exactly the meshes the paper used, and that the failure mode `get_mesh` has -
 returning an empty mesh and printing "Saved:" - cannot happen quietly.
 
 Marching cubes over a 462 x 768 x 1024 stack takes about 45 s, so the
-reproduction test is opt-in: run with `--run-slow`.
+reproduction test is opt-in: run with `pytest -m slow`.
 """
 import numpy as np
 import pytest

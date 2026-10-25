@@ -36,9 +36,8 @@ def _quiet(verbose):
     """Swallow the published functions' own printing.
 
     `getDeformedmesh2` and its neighbors print progress lines and whole mesh
-    descriptions. They are byte-for-byte copies of the published code and
-    `tests/test_pipeline_parity.py` keeps them that way, so the noise is
-    suppressed here rather than removed there. `--verbose` puts it back.
+    descriptions. They are byte-for-byte copies of the published code, so the
+    noise is suppressed here rather than removed there. `--verbose` puts it back.
     """
     if verbose:
         yield

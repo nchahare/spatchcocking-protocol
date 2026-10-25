@@ -35,3 +35,6 @@ results/
 # Figures are outputs, not sources
 figures/
 *.svg
+
+# Local working notes, never published
+inbox/

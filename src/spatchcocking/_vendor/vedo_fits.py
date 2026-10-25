@@ -17,6 +17,9 @@ bit-identical to those reported in Chahare et al. (2026); only the optional
 `return_grid` branch has been changed, to import vedo lazily so this module has
 no hard dependency on it.
 
+tests/test_fields.py checks that this copy reproduces the curvature values
+in data/example_outputs/.
+
 SOURCE
 ------
 vedo/pointcloud/fits.py, lines 256-411
@@ -30,7 +33,7 @@ The full text is in LICENSE.vedo alongside this file. MIT permits redistribution
 provided the copyright notice and permission notice are retained, which they are.
 
 If a future vedo release exposes `normal=` in `project_point_on_variety`, this
-module can be deleted and the import in `curvature.py` pointed back at vedo.
+module can be deleted and the import in `pipeline.py` pointed back at vedo.
 """
 
 import numpy as np

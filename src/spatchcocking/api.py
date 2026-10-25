@@ -6,8 +6,7 @@ function names -- `getPlanes`, `getDeformedmesh2`, `get_flatdata2`,
 to a reader. This module is the layer that gives each step its name.
 
 It is a layer, not a rewrite. Every published function stays exactly where it is,
-byte for byte, because `tests/test_pipeline_parity.py` checks that. What changes is
-what a reader has to know to call it.
+byte for byte. What changes is what a reader has to know to call it.
 
 Two behaviors differ deliberately from the published path, both because the
 published one cannot be written into a protocol:

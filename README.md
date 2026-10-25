@@ -97,9 +97,9 @@ use point data.
 
 ## The command line
 
-The package also installs a `spatchcock` command for scripting: `mesh`,
-`measure`, `axis`, `project`, `map`, and `compare`, each printing a summary of
-counts, ranges, and units. `spatchcock <command> --help` lists the options.
+The package also installs a `spatchcock` command for scripting: `view`,
+`mesh`, `measure`, `axis`, `project`, `map`, and `compare`, each printing a
+summary of counts, ranges, and units. `spatchcock <command> --help` lists the options.
 
 ## Tests
 
@@ -110,9 +110,6 @@ pytest -m slow
 
 The tests compare every field and the map with `data/example_outputs/`;
 `-m slow` adds building the reference surface from the mask.
-`tests/test_pipeline_parity.py` checks that the published functions are
-unchanged; it skips unless `SPATCHCOCKING_PUBLISHED` points at
-`spatchcocking_utils.py` from https://github.com/nchahare/spatchcocking.
 
 ## Where the code lives
 
