@@ -59,14 +59,28 @@ mesh.write(f"{RESULTS}/reference_surface_fields.vtk")
 fields = [f for f in mesh.pointdata.keys() if f != "Normals"]
 print("fields:", fields)
 
-# Show every field computed, three per row, each scaled to its 1st-99th percentile.
+# Show every field computed, curvature first, then intensity, then the point
+# fields, with the colormaps and ranges of show_map.py: median +/- 3 standard
+# deviations, symmetric about zero for signed fields, from zero for the others.
 import numpy as np  # noqa: E402
 from vedo import Plotter  # noqa: E402
+from spatchcocking.colors import field_grid, field_style  # noqa: E402
+from spatchcocking.pipeline import getTightercmap  # noqa: E402
 
-plotter = Plotter(shape=(-(-len(fields) // 3), 3), sharecam=True, size=(1500, 900),
+grid = field_grid(fields)
+rows, columns = len(grid), len(grid[0])
+plotter = Plotter(shape=(rows, columns), sharecam=True, size=(400 * columns, 450 * rows),
                   title="fields on the reference surface")
-for i, field in enumerate(fields):
-    low, high = np.percentile(np.asarray(mesh.pointdata[field]), [1, 99])
-    shown = mesh.clone().cmap("viridis", field, vmin=low, vmax=high).add_scalarbar()
+for i, field in enumerate(sum(grid, [])):
+    if field is None:
+        continue
+    _, cmap_name, symmetric = field_style(field)
+    low, high = getTightercmap(np.asarray(mesh.pointdata[field]), sigma=3)
+    if symmetric:
+        high = max(abs(low), abs(high))
+        low = -high
+    else:
+        low = 0.0
+    shown = mesh.clone().cmap(cmap_name, field, vmin=low, vmax=high).add_scalarbar()
     plotter.at(i).show(shown, field)
 plotter.interactive().close()

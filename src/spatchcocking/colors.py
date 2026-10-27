@@ -74,3 +74,30 @@ def field_style(field):
     if field.endswith("_intensity"):
         return (f"{field[:-len('_intensity')].replace('_', ' ')} intensity", "viridis", False)
     return (field, "viridis", False)
+
+
+# The order in which fields are laid out when all are shown: curvature first, then
+# image intensity, then the point fields, each value column before each density.
+CURVATURE_ORDER = ["Gauss_Curvature", "Mean_Curvature", "K1", "K2"]
+
+__all__ += ["CURVATURE_ORDER", "field_grid"]
+
+
+def field_grid(fields, rows=2):
+    """Lay fields out in a grid, filled column by column.
+
+    With the example's eight fields and two rows, the columns are Gaussian and
+    mean curvature, k1 and k2, the two intensities (alphabetical, so DAPI above
+    pHH3), and thickness above the pHH3 local count.
+
+    Returns a list of `rows` lists, row by row; cells left over are None.
+    """
+    curvature = [f for f in CURVATURE_ORDER if f in fields]
+    intensity = sorted((f for f in fields if f.endswith("_intensity")), key=str.lower)
+    density = [f for f in fields if f.endswith("_density")]
+    other = [f for f in fields if f not in curvature + intensity + density]
+    ordered = curvature + intensity + other + density
+    rows = max(1, min(rows, len(ordered)))
+    columns = -(-len(ordered) // rows)
+    ordered += [None] * (rows * columns - len(ordered))
+    return [[ordered[c * rows + r] for c in range(columns)] for r in range(rows)]
