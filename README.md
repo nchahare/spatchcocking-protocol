@@ -124,7 +124,6 @@ The tests compare every field and the map with `data/example_outputs/`;
 | `plotting.py`, `colors.py` | Drawing the maps |
 | `pipeline.py` | The published projection, unchanged |
 | `meshing.py` | Mask to surface mesh |
-| `attic.py` | Published functions no longer used |
 
 ## License
 

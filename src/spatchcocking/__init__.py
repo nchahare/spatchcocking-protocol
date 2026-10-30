@@ -9,6 +9,6 @@ notebooks short but left the reader unable to tell which names belong to this
 package - and a protocol has to name things precisely.
 """
 
-__version__ = "0.2.0"
+__version__ = "1.0.0"
 
 __all__ = ["__version__"]

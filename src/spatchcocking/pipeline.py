@@ -15,10 +15,10 @@ find the method inside it. The split is by role, not by preference:
 * `pipeline.py` (this file) - the projection itself, plus the two routines that
   attach a property to a mesh before it is projected.
 * `meshing.py` - segmentation mask to surface mesh. The protocol's entry point.
-* `attic.py` - superseded or dead. Staged for deletion; see that file.
 
-Nothing was thrown away. `attic.py` exists so that removing code is a separate,
-reversible decision from organizing it.
+The rest of the published module is left out: first versions superseded by the
+`*2` variants, the old plotting and the old picker, and `getProperCurvature`,
+which fails on any current vedo. They remain in nchahare/spatchcocking.
 
 Deviations from the original, all non-numerical
 -----------------------------------------------
